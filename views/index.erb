@@ -31,7 +31,11 @@
                   <td><%= exception["message"] %></td>
                 </tr>
               </table>
-              <pre><%= exception["backtrace"].join("\n") %></pre>
+              <div><%= exception["backtrace"].map { |line|
+                         line.gsub(%r"(/Users.*?):([\d]*):") {
+                           %(<a href="emacs://open/?url=file://#{$1}&line=#{$2}">#{$1}</a>:#{$2}:)
+                         }
+                       }.join("<br />") %></div>
             </div>
           <% end %>
         </div>
