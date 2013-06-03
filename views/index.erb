@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="span8 offset2">
+          <% @exceptions.each do |exception| %>
+            <div id="exception-<%= exception["_id"] %>">
+              <p class="pull-right">
+                <i class="icon-remove" data-id="<%= exception["_id"] %>"></i>
+              </p>
+              <span class="close"></span>
+              <table class="table">
+                <tr>
+                  <td>date</td>
+                  <td><%= exception["occurred_at"].inspect %></td>
+                </tr>
+                <tr>
+                  <td>class</td>
+                  <td><%= exception["exception_class"] %></td>
+                </tr>
+                <tr>
+                  <td>message</td>
+                  <td><%= exception["message"] %></td>
+                </tr>
+              </table>
+              <pre><%= exception["backtrace"].join("\n") %></pre>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

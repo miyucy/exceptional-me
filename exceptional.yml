@@ -1,0 +1,15 @@
+api-key:     waste
+ssl:         false
+# remote-port: 80
+# remote-host: "exceptional-me.dev"
+remote-port: 59292
+remote-host: localhost
+
+development:
+  enabled: true
+
+test:
+  enabled: false
+
+production:
+  enabled: false
