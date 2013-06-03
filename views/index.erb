@@ -10,7 +10,7 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="span8 offset2">
+        <div class="span12">
           <% @exceptions.each do |exception| %>
             <div id="exception-<%= exception["_id"] %>">
               <p class="pull-right">
@@ -33,7 +33,7 @@
               </table>
               <div><%= exception["backtrace"].map { |line|
                          line.gsub(%r"(/Users.*?):([\d]*):") {
-                           %(<a href="emacs://open/?url=file://#{$1}&line=#{$2}">#{$1}</a>:#{$2}:)
+                           %(<a href="emacs://open/?url=file://#{$1}&line=#{$2}">#{$1.gsub(Regexp.union(*ENV["GEM_PATH"].split(":")), 'GEM_PATH').gsub(ENV["HOME"], '~')}</a>:#{$2}:)
                          }
                        }.join("<br />") %></div>
             </div>
