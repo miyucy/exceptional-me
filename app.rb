@@ -41,7 +41,7 @@ class Wrap
   end
 
   def call(env)
-    if env["REQUEST_METHOD"] == METHOD and env["REQUEST_PATH"] == PATH
+    if trap? env
       dump env["REQUEST_URI"], env["rack.input"]
       [200, {}, [""]]
     else
@@ -49,7 +49,6 @@ class Wrap
     end
   end
 
-  # /api/errors?api_key=waste&protocol_version=5&hash=82a47bb7471db27acd79bfcf8d5c78bc
   def dump(uri, input)
     input.rewind
     data = input.read
@@ -62,6 +61,11 @@ class Wrap
              return
            end
     Exceptions.save JSON.parse(json)["exception"]
+  end
+
+  def trap?(env)
+    ((env["REQUEST_METHOD"] == METHOD) and
+     (env["REQUEST_PATH"] == PATH or env["PATH_INFO"] == PATH))
   end
 end
 
