@@ -59,7 +59,7 @@ class Wrap
 
   def call(env)
     if trap? env
-      dump env["REQUEST_URI"], env["rack.input"]
+      dump env["REQUEST_URI"] || env["QUERY_STRING"], env["rack.input"]
       [200, {}, [""]]
     else
       @app.call env
