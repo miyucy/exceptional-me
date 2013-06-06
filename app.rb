@@ -30,6 +30,23 @@ class Exceptions
   end
 end
 
+class Dump
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    @app.call env
+  rescue => e
+    File.open("dump.log", "w") do |f|
+      f.puts e.message
+      f.puts e.backtrace
+      f.puts ""
+      f.puts env.pretty_inspect
+    end
+  end
+end
+
 class Wrap
   METHOD = "POST".freeze
   PATH   = "/api/errors".freeze
