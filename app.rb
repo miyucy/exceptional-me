@@ -77,6 +77,9 @@ class Wrap
            else
              return
            end
+    # File.open("latest.json", "w") { |f| f.write json }
+    # use by cli
+    # e.g. curl -i 'http://exceptional-me.dev/api/errors?api_key=waste&protocol_version=6&hash=' --data-binary @latest.json.gz
     Exceptions.save JSON.parse(json)["exception"]
   end
 
